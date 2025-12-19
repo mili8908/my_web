@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 大模型推理 - 七牛云智能服务</title>
+    <link href="https://storage.360buyimg.com/pubfree-bucket/ei-data-resource/02f0288/static/tailwind.min.css" rel="stylesheet">
+    <script src="https://storage.360buyimg.com/pubfree-bucket/ei-data-resource/02f0288/static/echarts.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .hero-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        
+        .card-glow {
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .typing-effect {
+            overflow: hidden;
+            border-right: 2px solid #22c55e;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #22c55e; }
+        }
+        
+        .model-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+        
+        .stats-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #22c55e, transparent);
+            margin: 4rem 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-pattern">
+        <div class="hero-glow"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-6xl md:text-8xl font-bold mb-8 text-gradient typing-effect">
+                    AI 大模型推理
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+                    引领人工智能新时代，为企业提供强大的大模型推理服务，助力业务智能化转型
+                </p>
+            </div>
+            
+            <!-- 核心促销信息 -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="model-card rounded-2xl p-8 text-center floating">
+                    <div class="stats-number mb-4">500万</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-green-400">Token奖励</h3>
+                    <p class="text-gray-400">邀请1位好友即可立享</p>
+                </div>
+                
+                <div class="model-card rounded-2xl p-8 text-center floating" style="animation-delay: 0.5s;">
+                    <div class="stats-number mb-4">500万</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-green-400">TPM限流</h3>
+                    <p class="text-gray-400">最高初始限流保障</p>
+                </div>
+                
+                <div class="model-card rounded-2xl p-8 text-center floating" style="animation-delay: 1s;">
+                    <div class="stats-number mb-4">50+</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-green-400">大模型</h3>
+                    <p class="text-gray-400">随心调用，应有尽有</p>
+                </div>
+            </div>
+            
+            <!-- 主要CTA按钮 -->
+            <div class="text-center mb-16">
+                <button class="btn-glow bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-12 rounded-full text-xl transition-all duration-300 transform hover:scale-105">
+                    立即推广
+                </button>
+                <p class="text-sm text-gray-400 mt-4">拉新有礼拿百亿Token，多邀多领不封顶</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 服务详情部分 -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gradient">七牛云AI大模型推理服务</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 限时体验 -->
+                <div class="card-glow bg-gray-900 rounded-2xl p-8 hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-green-400 text-4xl mb-4">🎁</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">限时体验</h3>
+                    <p class="text-gray-300 mb-4">新用户注册即送</p>
+                    <div class="text-3xl font-bold text-white mb-2">300万 Tokens</div>
+                    <p class="text-sm text-gray-400">免费体验AI大模型推理服务</p>
+                </div>
+                
+                <!-- 12.12特惠 -->
+                <div class="card-glow bg-gray-900 rounded-2xl p-8 hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-green-400 text-4xl mb-4">🔥</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">12.12特惠</h3>
+                    <p class="text-gray-300 mb-4">云主机限时优惠</p>
+                    <div class="text-3xl font-bold text-white mb-2">低至2.7折</div>
+                    <p class="text-sm text-gray-400">全年最低价，咨询客户享叠加惊喜</p>
+                </div>
+                
+                <!-- 免费额度 -->
+                <div class="card-glow bg-gray-900 rounded-2xl p-8 hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-green-400 text-4xl mb-4">💰</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">万元免费额度</h3>
+                    <p class="text-gray-300 mb-4">年年送，持续受益</p>
+                    <div class="text-2xl font-bold text-white mb-2">10GB 存储&CDN</div>
+                    <p class="text-sm text-gray-400">月领免费资源包</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- 大模型生态部分 -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gradient">50+大模型随心调用</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="model-card rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">🤖</div>
+                    <h4 class="font-semibold mb-2">GPT系列</h4>
+                    <p class="text-sm text-gray-400">强大的语言理解与生成</p>
+                </div>
+                <div class="model-card rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">🎨</div>
+                    <h4 class="font-semibold mb-2">文生图模型</h4>
+                    <p class="text-sm text-gray-400">创意图像生成</p>
+                </div>
+                <div class="model-card rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">🎵</div>
+                    <h4 class="font-semibold mb-2">音频处理</h4>
+                    <p class="text-sm text-gray-400">语音识别与合成</p>
+                </div>
+                <div class="model-card rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">📊</div>
+                    <h4 class="font-semibold mb-2">数据分析</h4>
+                    <p class="text-sm text-gray-400">智能数据洞察</p>
+                </div>
+            </div>
+            
+            <!-- 性能指标图表 -->
+            <div class="bg-gray-900 rounded-2xl p-8 card-glow">
+                <h3 class="text-2xl font-semibold mb-8 text-center text-green-400">服务性能指标</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-green-400 mb-2">99.9%</div>
+                        <p class="text-gray-300">服务可用性</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-green-400 mb-2">< 100ms</div>
+                        <p class="text-gray-300">平均响应时间</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-green-400 mb-2">24/7</div>
+                        <p class="text-gray-300">全天候服务</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- 客户支持部分 -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gradient">全方位客户支持</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-gray-900 rounded-2xl card-glow hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-5xl mb-6">🤖</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">智能助手</h3>
+                    <p class="text-gray-300">7×24小时在线智能客服，快速解答您的疑问</p>
+                </div>
+                
+                <div class="text-center p-8 bg-gray-900 rounded-2xl card-glow hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-5xl mb-6">👥</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">人工客服</h3>
+                    <p class="text-gray-300">专业技术团队提供一对一服务支持</p>
+                </div>
+                
+                <div class="text-center p-8 bg-gray-900 rounded-2xl card-glow hover:bg-gray-800 transition-all duration-300">
+                    <div class="text-5xl mb-6">📞</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">电话支持</h3>
+                    <p class="text-gray-300">热线电话随时待命，紧急问题快速响应</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 py-12 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <p class="text-gray-400 text-sm">
+                    Created by JoyAgent<br>
+                    页面内容均由 AI 生成，仅供参考
+                </p>
+            </div>
+            <div class="text-xs text-gray-500">
+                <p>© 2025 七牛云AI大模型推理服务 | 让AI赋能每一个业务场景</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 添加滚动动画效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // 观察所有卡片元素
+        document.querySelectorAll('.model-card, .card-glow').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // 按钮点击效果
+        document.querySelector('.btn-glow').addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+        });
+        
+        // 添加鼠标跟随光晕效果
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.hero-glow');
+            if (glow) {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                glow.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(34, 197, 94, 0.15) 0%, transparent 70%)`;
+            }
+        });
+    </script>
+</body>
+</html>
